@@ -1,0 +1,40 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: dave
+  namespace: default
+  labels:
+    app: dave
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dave
+  template:
+    metadata:
+      labels:
+        app: dave
+    spec:
+      containers:
+      - name: dave
+        image: localhost:5000/dave/workspace
+        command: ["/usr/sbin/sshd", "-D"]
+        ports:
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /root/dave/data
+          name: user-storage
+        env:
+        - name: COLUMNS
+          value: "`tput cols`"
+        - name: LINES
+          value: "`tput lines`"
+      volumes:
+      - name: user-storage
+        flexVolume:
+          driver: rook.io/rook
+          fsType: ceph
+          options:
+            fsName: registryfs
+            clusterNamespace: rook
+            path: /tabb

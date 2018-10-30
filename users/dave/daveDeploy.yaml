@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dave-ws
+  labels:
+    app: dave-ws
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dave-ws
+  template:
+    metadata:
+      labels:
+        app: dave-ws
+    spec:
+      containers:
+      - name: dave-ws
+        image: localhost:5000/gveeden/phasing
+        command: ["/usr/sbin/sshd", "-D"]
+        ports:
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /root/sharedfs
+          name: sharedfs
+      volumes:
+      - name: sharedfs
+        flexVolume:
+          driver: rook.io/rook
+          fsType: ceph
+          options:
+            fsName: registryfs
+            clusterNamespace: rook
+            #path: /dave
+      nodeSelector:
+        name: "n14"
