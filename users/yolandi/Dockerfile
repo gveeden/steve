@@ -61,7 +61,7 @@ RUN cp ./rfmix /root/.bin/rfmix && chmod +x /root/.bin/rfmix
 
 WORKDIR /root/yolandi
 
-COPY bashrc /root/yolandi/.bashrc
+COPY bashrc /root/.bashrc
 
 CMD ["/usr/sbin/sshd", "-D"]
 

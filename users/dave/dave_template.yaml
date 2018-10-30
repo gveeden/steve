@@ -38,3 +38,5 @@ spec:
             fsName: registryfs
             clusterNamespace: rook
             path: /tabb
+      nodeSelector:
+        name: "n14"

@@ -19,3 +19,4 @@ fi
 
 export PATH=$PATH:/root/.bin
 export PATH=$PATH:/opt/bin
+export PATH=$PATH:/root/install/vcflib/bin

@@ -40,7 +40,7 @@ RUN cp ./bin/shapeit /root/.bin/shapeit && chmod +x /root/.bin/shapeit
 
 WORKDIR /root/dave
 
-COPY bashrc /root/dave/.bashrc
+COPY bashrc /root/.bashrc
 
 CMD ["/usr/sbin/sshd", "-D"]
 

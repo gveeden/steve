@@ -1,42 +1,41 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yolandi
-  namespace: default
+  name: gveeden
   labels:
-    app: yolandi-ws
+    app: gveeden
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: yolandi-ws
+      app: gveeden
   template:
     metadata:
       labels:
-        app: yolandi-ws
+        app: gveeden
     spec:
       containers:
-      - name: yolandi
-        image: localhost:5000/yolandi/workspace
+      - name: gveeden
+        image: localhost:5000/gveeden/workspace
         command: ["/usr/sbin/sshd", "-D"]
         ports:
         - containerPort: 22
         volumeMounts:
-        - mountPath: /root/yolandi/data
-          name: user-storage
+        - mountPath: /root/gveeden/data
+          name: sharedfs
         env:
         - name: COLUMNS
           value: "`tput cols`"
         - name: LINES
           value: "`tput lines`"
       volumes:
-      - name: user-storage
+      - name: sharedfs
         flexVolume:
           driver: rook.io/rook
           fsType: ceph
           options:
             fsName: registryfs
             clusterNamespace: rook
-            path: /yolandi
+            path: /gveeden/data
       nodeSelector:
         name: "n14"

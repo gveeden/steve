@@ -20,7 +20,7 @@ fi
 export PATH=$PATH:/home/core/.bin
 export KUBECONFIG=/opt/cluster-config/terraform/assets/auth/kubeconfig
 export PATH=$PATH:/opt/bin
-export POD=$(kubectl get pod -l app=gveeden-ws -o jsonpath="{.items[0].metadata.name}")
+export POD=$(kubectl get pod -l app=gveeden -o jsonpath="{.items[0].metadata.name}")
 export REG=$(kubectl get pod -l k8s-app=kube-registry -n kube-system -o jsonpath="{.items[0].metadata.name}")
 export PF=$(kubectl port-forward $REG -n kube-system 5000:5000) &
 export ENVIR=$(env LINES=$LINES COLUMNS=$COLUMNS)
