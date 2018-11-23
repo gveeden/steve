@@ -70,7 +70,7 @@ RUN make
 
 RUN cp /root/install/bwa/bwa /root/.bin/bwa && chmod +x /root/.bin/bwa && cp /root/install/samtools-1.9/samtools /root/.bin/samtools && chmod +x /root/.bin/samtools
 
-WORKDIR /root/gveeden
+WORKDIR /root/tina
 
 COPY bashrc /root/.bashrc
 
