@@ -31,9 +31,6 @@ RUN sudo apt-get --fix-broken install -y && sudo apt-get update && sudo apt-get 
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get install -y --no-install-recommends \
-    r-base \
-    r-base-dev
 RUN mkdir -p /var/run/sshd  && mkdir -p /root/.bin && mkdir -p /root/install && mkdir -p /root/tina/data
 
 WORKDIR /root/install
@@ -42,8 +39,6 @@ WORKDIR /root/install
 RUN curl -O https://storage.googleapis.com/kubernetes-release/release/v1.10.1/bin/linux/amd64/kubectl
 RUN cp ./kubectl /root/.bin/kubectl && chmod +x /root/.bin/kubectl
 
-RUN pip install snpflip
-
 # Get plink 1.9
 #install plink
 RUN wget https://www.cog-genomics.org/static/bin/plink181012/plink_linux_x86_64.zip && unzip plink_linux_x86_64.zip && cp ./plink /root/.bin/plink && chmod +x /root/.bin/plink
@@ -51,7 +46,7 @@ RUN wget https://www.cog-genomics.org/static/bin/plink181012/plink_linux_x86_64.
 #install shapeit
 RUN wget https://mathgen.stats.ox.ac.uk/genetics_software/shapeit/shapeit.v2.r837.GLIBCv2.12.Linux.static.tgz && tar -zxvf shapeit.v2.r837.GLIBCv2.12.Linux.static.tgz && cp ./bin/shapeit /root/.bin/shapeit && chmod +x /root/.bin/shapeit
 
-#install KING 
+#install KING
 RUN wget http://people.virginia.edu/~wc9c/KING/Linux-king.tar.gz && tar -zxvf Linux-king.tar.gz && cp ./king /root/.bin/king && chmod +x /root/.bin/king
 
 #install ADMIXTURE
@@ -80,4 +75,3 @@ WORKDIR /root/gveeden
 COPY bashrc /root/.bashrc
 
 CMD ["/usr/sbin/sshd", "-D"]
- 
