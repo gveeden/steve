@@ -32,8 +32,8 @@ RUN sudo apt-get --fix-broken install -y && sudo apt-get update && sudo apt-get 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get install -y --no-install-recommends \
-    r-base
-
+    r-base \
+    r-base-dev
 RUN mkdir -p /var/run/sshd  && mkdir -p /root/.bin && mkdir -p /root/install && mkdir -p /root/gveeden/data
 
 WORKDIR /root/install
@@ -73,7 +73,7 @@ RUN ./configure && make && make install
 WORKDIR /root/install/bwa
 RUN make
 
-cp /root/install/bwa-0.7.17/bwa /root/.bin/bwa && chmod +x /root/.bin/bwa && cp /root/install/vcflib/vcflib /root/.bin/vcflib && chmod +x /root/.bin/vcflib && cp /root/install/vcftools/vcftools /root/.bin/vcftools && chmod +x /root/.bin/vcftools && cp /root/install/samtools-1.9/samtools /root/.bin/samtools && chmod +x /root/.bin/samtools
+RUN cp /root/install/bwa/bwa /root/.bin/bwa && chmod +x /root/.bin/bwa && cp /root/install/samtools-1.9/samtools /root/.bin/samtools && chmod +x /root/.bin/samtools
 
 WORKDIR /root/gveeden
 

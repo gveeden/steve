@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test
+  labels:
+    app: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+      - name: test
+        image: gveeden/rcluster
+        command: ["/usr/sbin/sshd", "-D"]
+        ports:
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /home
+          name: sharedfs
+        env:
+        - name: COLUMNS
+          value: "`tput cols`"
+        - name: LINES
+          value: "`tput lines`"
+      volumes:
+      - name: sharedfs
+        flexVolume:
+          driver: rook.io/rook
+          fsType: ceph
+          options:
+            fsName: registryfs
+            clusterNamespace: rook
+          #  path: /
+      nodeSelector:
+        name: "n14"
