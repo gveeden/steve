@@ -59,7 +59,7 @@ RUN wget http://software.genetics.ucla.edu/admixture/binaries/admixture_linux-1.
 
 RUN git clone https://github.com/vcftools/vcftools.git && git clone --recursive https://github.com/vcflib/vcflib.git && wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 && tar -xvf samtools-1.9.tar.bz2 && git clone https://github.com/lh3/bwa.git
 
-RUN git clone --recursive git://github.com/samtools/htslib.git && git clone --recursive git://github.com/samtools/bcftools.git
+RUN wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2 && wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2 && tar -xvf htslib-1.9.tar.bz2 && tar -xvf bcftools-1.9.tar.bz2
 
 #install vcftools and vcflib
 WORKDIR /root/install/vcftools
@@ -71,8 +71,11 @@ RUN make
 WORKDIR /root/install/samtools-1.9
 RUN ./configure && make && make install
 
-WORKDIR /root/install/bcftools
-RUN make 
+WORKDIR /root/install/htslib-1.9
+RUN ./configure && make && make install
+
+WORKDIR /root/install/bcftools-1.9
+RUN ./configure && make && make install
 
 #install bwa
 WORKDIR /root/install/bwa
