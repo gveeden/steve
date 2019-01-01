@@ -59,7 +59,7 @@ RUN wget http://software.genetics.ucla.edu/admixture/binaries/admixture_linux-1.
 
 RUN git clone https://github.com/vcftools/vcftools.git && git clone --recursive https://github.com/vcflib/vcflib.git && wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 && tar -xvf samtools-1.9.tar.bz2 && git clone https://github.com/lh3/bwa.git
 
-RUN git clone git://github.com/samtools/htslib.git && git clone git://github.com/samtools/bcftools.git
+RUN git clone --recursive git://github.com/samtools/htslib.git && git clone --recursive git://github.com/samtools/bcftools.git
 
 #install vcftools and vcflib
 WORKDIR /root/install/vcftools
