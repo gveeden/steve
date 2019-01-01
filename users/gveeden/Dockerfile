@@ -46,7 +46,7 @@ RUN pip install snpflip
 
 # Get plink 1.9
 #install plink
-RUN wget https://www.cog-genomics.org/static/bin/plink181012/plink_linux_x86_64.zip && unzip plink_linux_x86_64.zip && cp ./plink /root/.bin/plink && chmod +x /root/.bin/plink
+RUN wget http://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20181202.zip && unzip plink_linux_x86_64_20181202.zip && cp ./plink /root/.bin/plink && chmod +x /root/.bin/plink
 
 #install shapeit
 RUN wget https://mathgen.stats.ox.ac.uk/genetics_software/shapeit/shapeit.v2.r837.GLIBCv2.12.Linux.static.tgz && tar -zxvf shapeit.v2.r837.GLIBCv2.12.Linux.static.tgz && cp ./bin/shapeit /root/.bin/shapeit && chmod +x /root/.bin/shapeit
