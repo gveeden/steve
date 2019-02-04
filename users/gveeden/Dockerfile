@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     git \
     openssh-server \
     python-pip \
+    python3-pip \
     curl \
     less \
     sudo \
@@ -22,6 +23,8 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     libgtk-3-dev \
     libncurses5-dev
+
+RUN pip3 install Biopython
 
 RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 
