@@ -88,7 +88,7 @@ RUN cp /root/install/bwa/bwa /root/.bin/bwa && chmod +x /root/.bin/bwa && cp /ro
 
 WORKDIR /root/gveeden
 
-COPY bashrc /root/.bashrc
+COPY bashrc /root/.bash_aliases
 
 CMD ["/usr/sbin/sshd", "-D"]
  
