@@ -36,6 +36,6 @@ spec:
           options:
             fsName: registryfs
             clusterNamespace: rook
-            path: /gveeden/data
+            path: /gveeden
       nodeSelector:
         name: "n14"
