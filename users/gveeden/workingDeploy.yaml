@@ -31,11 +31,11 @@ spec:
       volumes:
       - name: sharedfs
         flexVolume:
-          driver: rook.io/rook
+          driver: ceph.rook.io/rook
           fsType: ceph
           options:
             fsName: registryfs
-            clusterNamespace: rook
+            clusterNamespace: rook-ceph
             path: /gveeden
       nodeSelector:
         name: "n14"
