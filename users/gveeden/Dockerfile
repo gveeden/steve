@@ -23,7 +23,11 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     libgtk-3-dev \
     libncurses5-dev \
-    libcurl4-openssl-dev
+    libcurl4-openssl-dev \
+    pkg-config \
+    python-dev \
+    libgsl0-dev \
+    libssl-dev
 
 RUN pip3 install Biopython
 
@@ -103,10 +107,7 @@ WORKDIR /root/install
 RUN git clone https://github.com/popgenmethods/ldpop.git ldpop
 RUN pip3 install ldpop/
 RUN apt-get install -y \
-    pkg-config \
-    python-dev \
-    libgsl0-dev \
-    libssl-dev
+    
 RUN pip3 install msprime
 RUN pip3 install cython
 RUN git clone https://github.com/popgenmethods/pyrho.git pyrho
