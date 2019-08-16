@@ -22,7 +22,8 @@ RUN apt-get update && apt-get install -y \
     automake \
     pkg-config \
     libgtk-3-dev \
-    libncurses5-dev
+    libncurses5-dev \
+    libcurl4-openssl-dev
 
 RUN pip3 install Biopython
 
@@ -60,7 +61,7 @@ RUN wget http://people.virginia.edu/~wc9c/KING/Linux-king.tar.gz && tar -zxvf Li
 #install ADMIXTURE
 RUN wget http://software.genetics.ucla.edu/admixture/binaries/admixture_linux-1.3.0.tar.gz && tar -zxvf admixture_linux-1.3.0.tar.gz && cp ./admixture_linux-1.3.0/admixture /root/.bin/admixture && chmod +x /root/.bin/admixture
 
-RUN git clone https://github.com/vcftools/vcftools.git && git clone --recursive https://github.com/vcflib/vcflib.git && wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 && tar -xvf samtools-1.9.tar.bz2 && git clone https://github.com/lh3/bwa.git
+RUN git clone https://github.com/vcftools/vcftools.git && git clone --recursive https://github.com/vcflib/vcflib.git && wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 && tar -xvf samtools-1.9.tar.bz2 && git clone https://github.com/lh3/bwa.git && git clone https://github.com/slowkoni/rfmix.git
 
 RUN wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2 && wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2 && tar -xvf htslib-1.9.tar.bz2 && tar -xvf bcftools-1.9.tar.bz2
 
@@ -85,6 +86,31 @@ WORKDIR /root/install/bwa
 RUN make
 
 RUN cp /root/install/bwa/bwa /root/.bin/bwa && chmod +x /root/.bin/bwa && cp /root/install/samtools-1.9/samtools /root/.bin/samtools && chmod +x /root/.bin/samtools
+
+#install rfmix
+WORKDIR /root/install/rfmix
+RUN autoreconf --force --install && ./configure && make
+
+#Install dependencies
+COPY packages.R packages.R
+RUN Rscript packages.R
+
+WORKDIR /root/install/duohmm
+RUN wget https://mathgen.stats.ox.ac.uk/genetics_software/duohmm/duohmm_v0.1.7.tar.gz && tar -zxvf duohmm_v0.1.7.tar.gz
+RUN cp ./duohmm_v0.1.7/duohmm /root/.bin/duohmm && chmod +x /root/.bin/duohmm && cp ./duohmm_v0.1.7/mapavg.py /root/gveeden/mapavg.py && chmod +x /root/gveeden/mapavg.py
+
+WORKDIR /root/install
+RUN git clone https://github.com/popgenmethods/ldpop.git ldpop
+RUN pip3 install ldpop/
+RUN apt-get install -y \
+    pkg-config \
+    python-dev \
+    libgsl0-dev \
+    libssl-dev
+RUN pip3 install msprime
+RUN pip3 install cython
+RUN git clone https://github.com/popgenmethods/pyrho.git pyrho
+RUN pip3 install pyrho/
 
 WORKDIR /root/gveeden
 
