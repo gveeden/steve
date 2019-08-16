@@ -94,6 +94,7 @@ RUN cp /root/install/bwa/bwa /root/.bin/bwa && chmod +x /root/.bin/bwa && cp /ro
 #install rfmix
 WORKDIR /root/install/rfmix
 RUN autoreconf --force --install && ./configure && make
+RUN cp /root/install/rfmix /root/.bin/rfmix && chmod +x /root/.bin/rfmix
 
 WORKDIR /root/install/duohmm
 RUN wget https://mathgen.stats.ox.ac.uk/genetics_software/duohmm/duohmm_v0.1.7.tar.gz && tar -zxvf duohmm_v0.1.7.tar.gz
