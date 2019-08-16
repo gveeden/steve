@@ -95,10 +95,6 @@ RUN cp /root/install/bwa/bwa /root/.bin/bwa && chmod +x /root/.bin/bwa && cp /ro
 WORKDIR /root/install/rfmix
 RUN autoreconf --force --install && ./configure && make
 
-#Install dependencies
-COPY packages.R packages.R
-RUN Rscript packages.R
-
 WORKDIR /root/install/duohmm
 RUN wget https://mathgen.stats.ox.ac.uk/genetics_software/duohmm/duohmm_v0.1.7.tar.gz && tar -zxvf duohmm_v0.1.7.tar.gz
 RUN cp ./duohmm_v0.1.7/duohmm /root/.bin/duohmm && chmod +x /root/.bin/duohmm && cp ./duohmm_v0.1.7/mapavg.py /root/gveeden/mapavg.py && chmod +x /root/gveeden/mapavg.py
@@ -109,8 +105,12 @@ RUN pip3 install ldpop
 RUN pip3 install msprime
 RUN pip3 install cython
 RUN git clone https://github.com/popgenmethods/pyrho.git pyrho
-RUN pip3 install pyrho/
+RUN pip3 install pyrho
 
+#Install dependencies
+COPY packages.R packages.R
+
+#RUN Rscript packages.R
 WORKDIR /root/gveeden
 
 COPY bashrc /root/.bash_aliases
