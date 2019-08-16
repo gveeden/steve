@@ -101,11 +101,11 @@ RUN cp ./duohmm_v0.1.7/duohmm /root/.bin/duohmm && chmod +x /root/.bin/duohmm &&
 
 WORKDIR /root/install
 RUN git clone https://github.com/popgenmethods/ldpop.git ldpop
-RUN pip3 install ldpop
+RUN pip3 install ldpop/
 RUN pip3 install msprime
 RUN pip3 install cython
 RUN git clone https://github.com/popgenmethods/pyrho.git pyrho
-RUN pip3 install pyrho
+RUN pip3 install pyrho/
 
 #Install dependencies
 COPY packages.R packages.R
